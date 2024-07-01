@@ -21,10 +21,15 @@
 
 .img-responsive{
     width: 100%;
+    height: 100%;
 }
 
 .text-center{
     text-align: center;
+}
+
+.text-white{
+    color: white;
 }
 
 .text-right{
@@ -87,6 +92,7 @@ filedset{
     margin: 5%;
     padding: 3%;
     border-radius: 5px;
+    width: 50%;
 }
 .error{
     padding: 2%;
@@ -166,19 +172,26 @@ filedset{
     border-radius: 15px;
 }
 
+.box{
+    width: 25%;
+    display: inline;
+    margin-left: 50px;
+}
+
 .explore-menu-img{
-    width: 20%;
+    width: 45%;
     float: left;
+    top: 0;
 }
 .explore-menu-img-a{
-    width: 22%;
+    width: 45%;
     float: left;
 }
 
 .explore-menu-desc{
-    width: 70%;
-    float: left;
-    margin-left: 8%;
+    width: 50%;
+    float: right;
+    margin-left: 10px;
 }
 
 .price{
@@ -189,6 +202,10 @@ filedset{
 .desc{
     font-size: 1rem;
     color: #747d8c;
+}
+
+.order-label{
+    color: white;
 }
 
 /* css for social*/

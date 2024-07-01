@@ -150,54 +150,57 @@ if(isset($_POST['submit']))
         <?php endif; ?> 
 
         <form action="" method="POST" class="order">
-            <fieldset>
-                <legend>Selected item</legend>
+            <div class="explore-menu-img">
+                <?php
+                    // Check whether image is available or not
+                    if($image_name == "")
+                    {
+                        // Image not available
+                        echo "<div class='error'>Image not Available</div>";
+                    }
+                    else
+                    {
+                        // Image available
+                        ?>
+                        <img src="<?php echo SITEURL; ?>images/item/<?php echo $image_name; ?>" alt="" class="img-responsive img-curve">
+                        <?php
+                    }
+                ?>
+            </div>
+            <div class="box">
+                
+                <div>
 
-                <div class="item-menu-img">
-                    <?php
-                        // Check whether image is available or not
-                        if($image_name == "")
-                        {
-                            // Image not available
-                            echo "<div class='error'>Image not Available</div>";
-                        }
-                        else
-                        {
-                            // Image available
-                            ?>
-                            <img src="<?php echo SITEURL; ?>images/item/<?php echo $image_name; ?>" alt="" class="img-responsive img-curve">
-                            <?php
-                        }
-                    ?>
-                </div>
+                    <h2 class="order-label">Selected item</h2>
 
-                <div class="item-menu-desc">
-                    <h3><?php echo $title; ?></h3>
+                    <h3 class="order-label"><?php echo $title; ?></h3>
 
                     <input type="hidden" name="item" value="<?php echo $title; ?>">
                     <input type="hidden" name="price" value="<?php echo $price; ?>">
 
-                    <p class="item-price">$<?php echo $price; ?></p>
+                    <p class="item-price order-label">$<?php echo $price; ?></p>
 
                     <div class="order-label">Quantity</div>
                     <input type="number" name="qty" class="input-responsive" value="1">
                 </div>
-            </fieldset>
-            
-            <fieldset>
-                <legend>Delivery Details</legend>
-
-                <div class="order-label">Phone Number</div>
-                <input type="tel" name="contact" placeholder="E.g. 9843xxxxxx" class="input-responsive">
-
-                <div class="order-label">Email</div>
-                <input type="text" name="email" placeholder="E.g. hi@gmail.com" class="input-responsive">
-
-                <div class="order-label">Address</div>
-                <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive"></textarea>
-
-                <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
-            </fieldset>
+                <br><br>
+                
+                <div>
+                    <h2 class="order-label">Delivery Details</h2 >
+                    
+                    <div class="order-label">Phone Number</div>
+                    <input type="tel" name="contact" placeholder="E.g. 9843xxxxxx" class="input-responsive">
+                    
+                    <div class="order-label">Email</div>
+                    <input type="text" name="email" placeholder="E.g. hi@gmail.com" class="input-responsive">
+                    
+                    <div class="order-label">Address</div>
+                    <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive"></textarea>
+                    <br>
+                    
+                    <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
+                </div>
+            </div>
         </form>
         
     </div>

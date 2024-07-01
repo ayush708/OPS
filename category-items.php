@@ -68,7 +68,7 @@
 
                         ?>
 
-                            <div class="explore-box">
+                            <div class="explore-box box-3">
                                 <div class="explore-menu-img">
                                     <?php
                                         if($image_name=="")

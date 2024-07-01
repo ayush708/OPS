@@ -18,7 +18,7 @@
     <section class="navbar">
         <div class="container">
             <div class="logo">
-                <img src="images/logo .png" alt="E-Tech logo" class="img-responsive">
+                <a href="<?php echo SITEURL; ?>"><img src="images/logo .png" alt="E-Tech logo" class="img-responsive"></a>
             </div>
 
             <div class="menu text-right">
