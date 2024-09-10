@@ -101,31 +101,25 @@ if (isset($_POST['submit'])) {
         <br><br>
 
         
-        <form action="" method="POST">
-            <table class="tbl-30">
-                <tr><td colspan="7"><span class="error"><?php if(isset($err['full_name'])) echo $err['full_name']; ?></span></td></tr>
-                <tr>
-                    <td>Full Name:</td>
-                    <td>
-                        <input type="text" name="full_name" value="<?php echo htmlspecialchars($full_name); ?>">
-                    </td>
-                </tr>
-                <tr><td colspan="7"><span class="error"><?php if(isset($err['username'])) echo $err['username']; ?></span></td></tr>
-                
-                <tr>
-                    <td>Username:</td>
-                    <td>
-                        <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="submit" name="submit" value="Update Admin" class="btn-secondary">
-                    </td>
-                </tr>
-            </table>
-        </form>
+        <form action="" method="POST" style="max-width: 500px; margin: auto; background: #f7f7f7; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div style="margin-bottom: 15px;">
+        <label for="full_name" style="display: block; font-weight: bold; margin-bottom: 5px;">Full Name:</label>
+        <input type="text" name="full_name" id="full_name" value="<?php echo htmlspecialchars($full_name); ?>" placeholder="Enter your name" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <span class="error" style="color: red; font-size: 0.9em;"><?php if(isset($err['full_name'])) echo $err['full_name']; ?></span>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="username" style="display: block; font-weight: bold; margin-bottom: 5px;">Username:</label>
+        <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($username); ?>" placeholder="Enter your username" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <span class="error" style="color: red; font-size: 0.9em;"><?php if(isset($err['username'])) echo $err['username']; ?></span>
+    </div>
+
+    <div style="text-align: center;">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="submit" name="submit" value="Update Admin" class="btn-secondary" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    </div>
+</form>
+
     </div>
 </div>
 

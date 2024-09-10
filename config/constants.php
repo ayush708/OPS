@@ -1,15 +1,31 @@
 <?php
-    //start session
+// Start session if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
-    //create comstant to store non repeating value
-    define('SITEURL', 'http://localhost/etech/');
+}
+
+// Define constants only if they are not already defined
+if (!defined('SITEURL')) {
+    define('SITEURL', 'http://localhost/OPS/');
+}
+if (!defined('LOCALHOST')) {
     define('LOCALHOST', 'localhost');
+}
+if (!defined('DB_USERNAME')) {
     define('DB_USERNAME', 'root');
+}
+if (!defined('DB_PASSWORD')) {
     define('DB_PASSWORD', '');
-    define('DB_NAME', 'db_etech');
+}
+if (!defined('DB_NAME')) {
+    define('DB_NAME', 'petshop');
+}
 
+// Create a database connection
+$conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-    $conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_error());  //db connection
-    $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_error());   //selecting bd
-
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>

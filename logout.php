@@ -2,6 +2,6 @@
     include('config/constants.php');
     //destroy session 
     session_destroy(); //unset $_SESSION['user']
-    //redsirect to login page
-    header('location:'.SITEURL.'login.php');
+    //redirect to index page
+    header('location:'.SITEURL.'index.php');
 ?>

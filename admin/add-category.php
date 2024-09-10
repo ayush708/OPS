@@ -10,6 +10,17 @@
         // Validate and sanitize inputs
         if(isset($_POST['title']) && !empty(trim($_POST['title']))) {
             $title = trim($_POST['title']);
+            
+            // Check if the title is unique
+            $sql_check = "SELECT * FROM tbl_category WHERE title = ?";
+            $stmt_check = mysqli_prepare($conn, $sql_check);
+            mysqli_stmt_bind_param($stmt_check, "s", $title);
+            mysqli_stmt_execute($stmt_check);
+            $res_check = mysqli_stmt_get_result($stmt_check);
+            if(mysqli_num_rows($res_check) > 0) {
+                $err_title = 'Category title already exists';
+                $err++;
+            }
         } else {
             $err_title = 'Enter title';
             $err++;
@@ -84,7 +95,7 @@
 
 <div class="main">
     <div class="wrapper">
-        <h1>Add Category</h1>
+        
         <br><br>
 
         <?php
@@ -102,46 +113,72 @@
         <br><br>
 
         <!-- Add category form starts -->
-        <form action="" method="POST" enctype="multipart/form-data">
-            <table class="tbl-30">
-                <tr>
-                    <td>Title:</td>
-                    <td>
-                        <input type="text" name="title" placeholder="Category Title">
-                        <span class="error"><?php if(isset($err_title)) echo $err_title; ?></span>
-                    </td>
-                </tr>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
+        <h1 class="text-2xl font-semibold mb-6">Add Category</h1>
+        
+        <form action="" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div>
+                <label for="title" class="block text-gray-700 font-medium mb-2">Title:</label>
+                <input type="text" id="title" name="title" placeholder="Category Title" class="w-full p-3 border border-gray-300 rounded-lg" value="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>">
+                <span class="error"><?php if(isset($err_title)) echo htmlspecialchars($err_title); ?></span>
+            </div>
 
-                <tr>
-                    <td>Select Image:</td>
-                    <td>
-                        <input type="file" name="image">
-                    </td>
-                </tr>
+            <div>
+                <label for="image" class="block text-gray-700 font-medium mb-2">Select Image:</label>
+                <input type="file" id="image" name="image" class="w-full p-3 border border-gray-300 rounded-lg">
+            </div>
 
-                <tr>
-                    <td>Featured:</td>
-                    <td>
-                        <input type="radio" name="featured" value="Yes"> Yes
-                        <input type="radio" name="featured" value="No" checked> No
-                    </td>
-                </tr>
+            <div>
+                <span class="block text-gray-700 font-medium mb-2">Featured:</span>
+                <div class="flex items-center space-x-4">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="featured" value="Yes" class="form-radio" <?php if(isset($featured) && $featured=="Yes"){echo "checked";} ?>>
+                        <span class="ml-2">Yes</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="featured" value="No" class="form-radio" <?php if(isset($featured) && $featured=="No"){echo "checked";} ?>>
+                        <span class="ml-2">No</span>
+                    </label>
+                </div>
+            </div>
 
-                <tr>
-                    <td>Active:</td>
-                    <td>
-                        <input type="radio" name="active" value="Yes"> Yes
-                        <input type="radio" name="active" value="No" checked> No
-                    </td>
-                </tr>
+            <div>
+                <span class="block text-gray-700 font-medium mb-2">Active:</span>
+                <div class="flex items-center space-x-4">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="active" value="Yes" class="form-radio" <?php if(isset($active) && $active=="Yes"){echo "checked";} ?>>
+                        <span class="ml-2">Yes</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="active" value="No" class="form-radio" <?php if(isset($active) && $active=="No"){echo "checked";} ?>>
+                        <span class="ml-2">No</span>
+                    </label>
+                </div>
+            </div>
 
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="submit" value="Add Category" class="btn-secondary">
-                    </td>
-                </tr>
-            </table>
+            <div>
+                <input type="submit" name="submit" value="Add Category" class="w-full py-3 px-4 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600">
+            </div>
         </form>
+    </div>
+</body>
+</html>
+
         <!-- Add category form ends -->
     </div>
 </div>

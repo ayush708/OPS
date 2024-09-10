@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <!--imp to make website responsive-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Tech</title>
+    <title>Online Pet Shop</title>
 
     <!-- link css-->
     <link rel="stylesheet" href="css/style.css">
@@ -18,7 +18,7 @@
     <section class="navbar">
         <div class="container">
             <div class="logo">
-                <a href="<?php echo SITEURL; ?>"><img src="images/logo .png" alt="E-Tech logo" class="img-responsive"></a>
+                <a href="<?php echo SITEURL; ?>"><img src="images/log.jpg" alt="Online Pet Shop logo" class="img-responsive"></a>
             </div>
 
             <div class="menu text-right">

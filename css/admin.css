@@ -1,137 +1,173 @@
 /*
-    E-tech;
+    Online Pet Shop;
 */
 
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.wrapper{
-   
+.wrapper {
     padding: 1%;
     width: 80%;
     margin: 0 auto;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-.error{
-    color: red;
+.error {
+    color: #dc3545; /* red */
 }
 
-.clearfix{
+.clearfix {
     float: none;
     clear: both;
 }
 
-.tbl-full{
+.tbl-full {
     width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.tbl-30{
-    width: 30%;
-}
-table tr th{
-    border-bottom: 1px solid black;
+.tbl-full th, .tbl-full td {
     padding: 1%;
     text-align: left;
+    border: 1px solid #ddd; /* Light gray border */
 }
 
-table tr td{
-    padding: 1%;
+.tbl-full th {
+    background-color: #007bff; /* Blue background */
+    color: white;
 }
 
-.btn-primary{
-    background-color:#0fb117;
+.tbl-full td {
+    background-color: #f8f9fa; /* Light gray background */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Blue */
     padding: 1%;
     color: white;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 5px;
 }
 
-.btn-primary:hover{
-    background-color: #3fe447;
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue */
 }
 
-.btn-secondary{
-    background-color:#0fb117;
+.btn-secondary {
+    background-color: #6c757d; /* Gray */
     padding: 1%;
     color: white;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 5px;
 }
 
-.btn-secondary:hover{
-    background-color: #aae43f;
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray */
 }
 
-.btn-secondary1{
-    background-color:#eb0000;
+.btn-secondary1 {
+    background-color: #dc3545; /* Red */
     padding: 1%;
     color: white;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 5px;
 }
 
-.btn-secondary1:hover{
-    background-color: #ce5757;
+.btn-secondary1:hover {
+    background-color: #c82333; /* Darker red */
 }
 
-
-/* css for menu*/
-
-.menu ul{
+/* css for menu */
+.menu ul {
     list-style: none;
 }
-.menu ul li{
+
+.menu ul li {
     display: inline;
     padding: 1%;
 }
-.menu ul li a{
+
+.menu ul li a {
     text-decoration: none;
     font-weight: bold;
-    color: #0fb117;
-}
-.menu ul li a:hover{
-    color: #3fe447;
+    color: #007bff; /* Blue */
 }
 
+.menu ul li a:hover {
+    color: #0056b3; /* Darker blue */
+}
 
 /* css for main */
-.main{
-
-    background-color: #f1f2f6;
+.main {
+    background-color: #f8f9fa; /* Light gray */
     padding: 3% 0;
 }
-.col-4{
-    width: 18%;
+
+.col-4 {
+    width: 23%; /* Adjusted width for better fit */
     background-color: white;
     margin: 1%;
     padding: 2%;
     float: left;
+    box-sizing: border-box;
 }
 
+/* Responsive design */
+@media (max-width: 1200px) {
+    .col-4 {
+        width: 30%; /* Adjust width to fit 3 columns */
+    }
+}
 
+@media (max-width: 992px) {
+    .col-4 {
+        width: 45%; /* Adjust width to fit 2 columns */
+    }
+}
 
+@media (max-width: 768px) {
+    .col-4 {
+        width: 100%; /* Full width on smaller screens */
+        margin: 0 0 1% 0; /* Adjust margins for better spacing */
+    }
 
+    .tbl-full th, .tbl-full td {
+        padding: 0.5rem; /* Adjust padding for smaller screens */
+    }
 
-/* css for footer*/
-.footer{
-    background-color: #0fb117;
+    .btn-primary, .btn-secondary, .btn-secondary1 {
+        font-size: 0.9rem; /* Adjust font size for smaller screens */
+        padding: 0.5rem;
+    }
+}
+
+.footer {
+    background-color: #007bff; /* Blue */
     color: white;
+    padding: 10px 0;
+    text-align: center;
 }
 
-/* css for login */
-.login{
-    border: 1px solid grey;
-    width: 30%;
+.login {
+    border: 1px solid #6c757d; /* Gray */
+    width: 80%; /* Adjusted width for better fit */
+    max-width: 400px; /* Max width for larger screens */
     margin: 10% auto;
     padding: 2%;
 }
 
-
-/*css for input*/
+@media (max-width: 768px) {
+    .login {
+        width: 90%; /* Full width on smaller screens */
+    }
+}

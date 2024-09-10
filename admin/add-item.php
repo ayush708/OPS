@@ -113,19 +113,120 @@
             </div>
         <?php endif; ?>
 
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        td:first-child {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        input[type="text"], 
+        textarea, 
+        select, 
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .btn-secondary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .radio-group label {
+            margin: 0;
+            font-weight: normal;
+        }
+
+        @media (max-width: 600px) {
+            td:first-child {
+                text-align: left;
+                font-weight: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Item</h1>
+
         <form action="" method="POST" enctype="multipart/form-data">
-            <table class="tbl-30">
+            <table>
                 <tr>
                     <td>Title:</td>
-                    <td><input type="text" name="title" placeholder="Title of the Item" value="<?php echo isset($title) ? $title : ''; ?>"></td>
+                    <td><input type="text" name="title" placeholder="Title of the Item" value="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>"></td>
                 </tr>
                 <tr>
                     <td>Description:</td>
-                    <td><textarea name="description" cols="30" rows="5" placeholder="Description of Item"><?php echo isset($description) ? $description : ''; ?></textarea></td>
+                    <td><textarea name="description" cols="30" rows="5" placeholder="Description of Item"><?php echo isset($description) ? htmlspecialchars($description) : ''; ?></textarea></td>
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td><input type="text" name="price" placeholder="Price of the Item" value="<?php echo isset($price) ? $price : ''; ?>"></td>
+                    <td><input type="text" name="price" placeholder="Price of the Item" value="<?php echo isset($price) ? htmlspecialchars($price) : ''; ?>"></td>
                 </tr>
                 <tr>
                     <td>Select Image:</td>
@@ -156,15 +257,19 @@
                 <tr>
                     <td>Featured:</td>
                     <td>
-                        <input type="radio" name="featured" value="Yes">Yes
-                        <input type="radio" name="featured" value="No">No
+                        <div class="radio-group">
+                            <label><input type="radio" name="featured" value="Yes"> Yes</label>
+                            <label><input type="radio" name="featured" value="No"> No</label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>Active:</td>
                     <td>
-                        <input type="radio" name="active" value="Yes">Yes
-                        <input type="radio" name="active" value="No">No
+                        <div class="radio-group">
+                            <label><input type="radio" name="active" value="Yes"> Yes</label>
+                            <label><input type="radio" name="active" value="No"> No</label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -174,6 +279,10 @@
                 </tr>
             </table>
         </form>
+    </div>
+</body>
+</html>
+
     </div>
 </div>
 

@@ -147,98 +147,206 @@
             </div>
         <?php endif; ?>
 
-        <form action="" method="POST" enctype="multipart/form-data">
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-            <table class="tbl-30">
-                <tr>
-                    <td>Title:</td>
-                    <td>
-                        <input type="text" name="title" value="<?php echo htmlspecialchars($title); ?>" >
-                    </td>
-                </tr>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-                <tr>
-                    <td>Description:</td>
-                    <td>
-                        <textarea name="description" cols="30" rows="5" ><?php echo htmlspecialchars($description); ?></textarea>
-                    </td>
-                </tr>
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-                <tr>
-                    <td>Price:</td>
-                    <td>
-                        <input type="number" name="price" value="<?php echo htmlspecialchars($price); ?>" >
-                    </td>
-                </tr>
+        .tbl-30 {
+            width: 100%;
+            border-spacing: 10px;
+        }
 
-                <tr>
-                    <td>Current Image:</td>
-                    <td>
-                        <?php if(empty($current_image)) {
-                            echo "<div class='error'>Image not available</div>";
+        .tbl-30 td {
+            padding: 10px;
+        }
+
+        .tbl-30 input[type="text"],
+        .tbl-30 input[type="number"],
+        .tbl-30 textarea,
+        .tbl-30 select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .tbl-30 textarea {
+            resize: vertical;
+        }
+
+        .tbl-30 input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .tbl-30 img {
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .tbl-30 .btn-secondary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .tbl-30 .btn-secondary:hover {
+            background-color: #1976D2;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .tbl-30 td {
+                display: block;
+                width: 100%;
+            }
+
+            .tbl-30 td input[type="radio"] {
+                margin-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Update Item</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        <table class="tbl-30">
+            <tr>
+                <td>Title:</td>
+                <td>
+                    <input type="text" name="title" value="<?php echo htmlspecialchars($title); ?>" >
+                </td>
+            </tr>
+
+            <tr>
+                <td>Description:</td>
+                <td>
+                    <textarea name="description" cols="30" rows="5"><?php echo htmlspecialchars($description); ?></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Price:</td>
+                <td>
+                    <input type="number" name="price" value="<?php echo htmlspecialchars($price); ?>" >
+                </td>
+            </tr>
+
+            <tr>
+                <td>Current Image:</td>
+                <td>
+                    <?php if(empty($current_image)) : ?>
+                        <div class='error'>Image not available</div>
+                    <?php else : ?>
+                        <img src='<?php echo SITEURL; ?>images/item/<?php echo $current_image; ?>' width='150px'>
+                    <?php endif; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Select New Image:</td>
+                <td>
+                    <input type="file" name="image">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Category:</td>
+                <td>
+                    <select name="category">
+                        <?php
+                        // Fetch categories from database
+                        $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
+                        $res = mysqli_query($conn, $sql);
+
+                        if(mysqli_num_rows($res) > 0) {
+                            while($row = mysqli_fetch_assoc($res)) {
+                                $category_id = $row['id'];
+                                $category_title = $row['title'];
+                                ?>
+                                <option value="<?php echo $category_id; ?>" <?php if($current_category == $category_id) echo 'selected'; ?>><?php echo $category_title; ?></option>
+                                <?php
+                            }
                         } else {
-                            echo "<img src='".SITEURL."images/item/".$current_image."' width='150px'>";
-                        } ?>
-                    </td>
-                </tr>
+                            echo "<option value='0'>No Category Found</option>";
+                        }
+                        ?>
+                    </select>
+                </td>
+            </tr>
 
-                <tr>
-                    <td>Select New Image:</td>
-                    <td>
-                        <input type="file" name="image">
-                    </td>
-                </tr>
+            <tr>
+                <td>Featured:</td>
+                <td>
+                    <input type="radio" name="featured" value="Yes" <?php if($featured == "Yes") echo "checked"; ?>> Yes
+                    <input type="radio" name="featured" value="No" <?php if($featured == "No") echo "checked"; ?>> No
+                </td>
+            </tr>
 
-                <tr>
-                    <td>Category:</td>
-                    <td>
-                        <select name="category" >
-                            <?php
-                                // Fetch categories from database
-                                $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
-                                $res = mysqli_query($conn, $sql);
+            <tr>
+                <td>Active:</td>
+                <td>
+                    <input type="radio" name="active" value="Yes" <?php if($active == "Yes") echo "checked"; ?>> Yes
+                    <input type="radio" name="active" value="No" <?php if($active == "No") echo "checked"; ?>> No
+                </td>
+            </tr>
 
-                                if(mysqli_num_rows($res) > 0) {
-                                    while($row = mysqli_fetch_assoc($res)) {
-                                        $category_id = $row['id'];
-                                        $category_title = $row['title'];
-                                        ?>
-                                        <option value="<?php echo $category_id; ?>" <?php if($current_category == $category_id) echo 'selected'; ?>><?php echo $category_title; ?></option>
-                                        <?php
-                                    }
-                                } else {
-                                    echo "<option value='0'>No Category Found</option>";
-                                }
-                            ?>
-                        </select>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
+                    <input type="submit" name="submit" value="Update Item" class="btn-secondary">
+                </td>
+            </tr>
+        </table>
 
-                <tr>
-                    <td>Featured:</td>
-                    <td>
-                        <input type="radio" name="featured" value="Yes" <?php if($featured == "Yes") echo "checked"; ?>> Yes
-                        <input type="radio" name="featured" value="No" <?php if($featured == "No") echo "checked"; ?>> No
-                    </td>
-                </tr>
+    </form>
+</div>
 
-                <tr>
-                    <td>Active:</td>
-                    <td>
-                        <input type="radio" name="active" value="Yes" <?php if($active == "Yes") echo "checked"; ?>> Yes
-                        <input type="radio" name="active" value="No" <?php if($active == "No") echo "checked"; ?>> No
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="2">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
-                        <input type="submit" name="submit" value="Update Item" class="btn-secondary">
-                    </td>
-                </tr>
-            </table>
-        </form>
+</body>
+</html>
 
         <?php
             // Display session messages if any

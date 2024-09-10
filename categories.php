@@ -2,7 +2,7 @@
 
 
 
-    <!-- CAtegories Section Starts Here -->
+    <!-- Categories Section Starts Here -->
     <section class="categories">
         <div class="container">
             <h2 class="text-center">Explore Items</h2>

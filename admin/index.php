@@ -79,7 +79,7 @@
                     $total_revenue = $row4['Total'];
 
                 ?>
-                    <h1>$<?php echo $total_revenue; ?></h1>
+                    <h1>Rs.<?php echo $total_revenue; ?></h1>
                     Revenue Generated
                 </div>
                 <div class="clearfix"></div>

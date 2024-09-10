@@ -12,38 +12,38 @@
             }        
         ?>
 
-        <form action="" method="POST">
+<form action="" method="POST" style="max-width: 500px; margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="text-align: center; color: #333;">Change Password</h2>
+    <div style="margin-bottom: 15px;">
+        <label for="current_password" style="display: block; margin-bottom: 5px; color: #555;">Old Password:</label>
+        <input type="password" id="current_password" name="current_password" placeholder="Current Password" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
 
-        <table class="tbl-30">
-            <tr>
-                <td>Old Password:</td>
-                <td>
-                    <input type="password" name="current_password" placeholder="Current Password">
-                </td>
-            </tr>
-            
-            <tr>
-                <td>New Password:</td>
-                <td>
-                    <input type="password" name="new_password" placeholder="New Password">
-                </td>
-            </tr>
+    <div style="margin-bottom: 15px;">
+        <label for="new_password" style="display: block; margin-bottom: 5px; color: #555;">New Password:</label>
+        <input type="password" id="new_password" name="new_password" placeholder="New Password" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
 
-            <tr>
-                <td>Confirm Password</td>
-                <td>
-                    <input type="password" name="confirm_password" placeholder="Confirm Password">
-                </td>
-            </tr>
+    <div style="margin-bottom: 20px;">
+        <label for="confirm_password" style="display: block; margin-bottom: 5px; color: #555;">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
 
-            <tr>
-                <td colspan="2">
-                    <input type="hidden" name="id" value="<?php echo $id; ?>">
-                    <input type="submit" name="submit" value="Change Password" class="btn-secondary">
-                </td>
-            </tr>
-        </table>
-        </form>
+    <input type="hidden" name="id" value="<?php echo $id; ?>">
+    <input type="submit" name="submit" value="Change Password" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+
+    <style>
+        @media (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+            input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+    </style>
+</form>
+
     </div>
 </div>
 

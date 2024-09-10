@@ -25,6 +25,10 @@ if(isset($_POST['submit'])) {
         $err['username'] = "Username must be alphanumeric and between 4 to 29 characters";
     }
 
+    if(empty($_POST['password'])) {
+        $err['password'] = "Enter Password";
+    }
+
     // Check if there are no errors
     if(empty($err)) {
         // Password encryption using password_hash()
@@ -76,34 +80,30 @@ if(isset($_POST['submit'])) {
         }
         ?>
 
-        <form action="" method="POST">
-            <table class="tbl-30">
-                <tr><td colspan="2"><span class="error"><?php if(isset($err['full_name'])) echo $err['full_name']; ?></span></td></tr>
-                <tr>
-                    <td>Full Name:</td>
-                    <td>
-                        <input type="text" name="full_name" placeholder="Enter your name" value="<?php if(isset($full_name)) echo htmlspecialchars($full_name); ?>">
-                    </td>
-                </tr>
+<form action="" method="POST" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f7f7f7; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div style="margin-bottom: 15px;">
+        <label for="full_name" style="display: block; font-weight: bold; margin-bottom: 5px;">Full Name:</label>
+        <input type="text" name="full_name" id="full_name" placeholder="Enter your name" value="<?php if(isset($full_name)) echo htmlspecialchars($full_name); ?>" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <span class="error" style="color: red; font-size: 0.9em;"><?php if(isset($err['full_name'])) echo $err['full_name']; ?></span>
+    </div>
 
-                <tr><td colspan="2"><span class="error"><?php if(isset($err['username'])) echo $err['username']; ?></span></td></tr>
-                <tr>
-                    <td>Username:</td>
-                    <td>
-                        <input type="text" name="username" placeholder="Your Username" value="<?php if(isset($username)) echo htmlspecialchars($username); ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="password" name="password" placeholder="Your Password"></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="submit" value="Add Admin" class="btn-secondary">
-                    </td>
-                </tr>
-            </table>
-        </form>
+    <div style="margin-bottom: 15px;">
+        <label for="username" style="display: block; font-weight: bold; margin-bottom: 5px;">Username:</label>
+        <input type="text" name="username" id="username" placeholder="Your Username" value="<?php if(isset($username)) echo htmlspecialchars($username); ?>" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <span class="error" style="color: red; font-size: 0.9em;"><?php if(isset($err['username'])) echo $err['username']; ?></span>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Your Password" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <span class="error" style="color: red; font-size: 0.9em;"><?php if(isset($err['password'])) echo $err['password']; ?></span>
+    </div>
+
+    <div style="text-align: center;">
+        <input type="submit" name="submit" value="Add Admin" class="btn-secondary" style="width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1em;">
+    </div>
+</form>
+
     </div>
 </div>
 

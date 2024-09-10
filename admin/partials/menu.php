@@ -8,7 +8,7 @@
 
 <html>
     <head>
-        <title>E-tech</title>
+        <title>Online Pet Shop Admin</title>
         <link rel="stylesheet" href="../css/admin.css">
     </head>
 
@@ -19,6 +19,7 @@
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="manage-admin.php">Admin</a></li>
+                <li><a href="manage-user.php">Users</a></li>
                 <li><a href="category.php">Category</a></li>
                 <li><a href="item.php">Item</a></li>
                 <li><a href="order.php">Order</a></li>
