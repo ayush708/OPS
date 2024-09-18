@@ -18,7 +18,7 @@
     <section class="navbar">
         <div class="container">
             <div class="logo">
-                <a href="<?php echo SITEURL; ?>"><img src="images/log.jpg" alt="Online Pet Shop logo" class="img-responsive"></a>
+                <a href="<?php echo SITEURL; ?>"><img src="images/logo.jpg" alt="Online Pet Shop logo" class="img-responsive"></a>
             </div>
 
             <div class="menu text-right">

@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
             if (mysqli_stmt_execute($stmt2)) {
                 if ($payment_option == "Online Payment") {
                     // Redirect to eSewa for online payment
-                    header("Location: esewa_redirect.php?amount=$total&item=$item&order_id=" . mysqli_insert_id($conn));
+                    header("Location: checkout.php?amount=$total&item=$item&order_id=" . mysqli_insert_id($conn));
                     exit();
                 } else {
                     // Query executed and order saved
