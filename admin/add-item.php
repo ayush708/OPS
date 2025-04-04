@@ -10,6 +10,7 @@
         $title = isset($_POST['title']) ? $_POST['title'] : '';
         $description = isset($_POST['description']) ? $_POST['description'] : '';
         $price = isset($_POST['price']) ? $_POST['price'] : '';
+        $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : '';
 
         // Validate title
         if(empty($title)) {
@@ -26,6 +27,11 @@
             $errors['price'] = 'Price is required';
         } elseif(!preg_match('/^\d+(\.\d{1,2})?$/', $price)) {
             $errors['price'] = 'Invalid price format';
+        }
+
+        // Validate quantity
+        if(empty($quantity) || !is_numeric($quantity) || $quantity <= 0) {
+            $errors['quantity'] = 'Please enter a valid quantity';
         }
 
         // Validate image upload if provided
@@ -67,12 +73,12 @@
             $active = isset($_POST['active']) ? $_POST['active'] : 'No';
 
             // Insert into database
-            $sql = "INSERT INTO tbl_items (title, description, price, image_name, category_id, featured, active) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO tbl_items (title, description, price, image_name, category_id, featured, active, quantity) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
 
             // Bind parameters
-            mysqli_stmt_bind_param($stmt, "ssssiss", $title, $description, $price, $image_name, $category, $featured, $active);
+            mysqli_stmt_bind_param($stmt, "ssssissi", $title, $description, $price, $image_name, $category, $featured, $active, $quantity);
 
             // Execute query
             if(mysqli_stmt_execute($stmt)) {
@@ -158,6 +164,7 @@
         }
 
         input[type="text"], 
+        input[type="number"], 
         textarea, 
         select, 
         input[type="file"] {
@@ -229,6 +236,10 @@
                     <td><input type="text" name="price" placeholder="Price of the Item" value="<?php echo isset($price) ? htmlspecialchars($price) : ''; ?>"></td>
                 </tr>
                 <tr>
+                    <td>Number of Items Left:</td>
+                    <td><input type="number" name="quantity" placeholder="Enter quantity available" min="1" value="<?php echo isset($quantity) ? htmlspecialchars($quantity) : ''; ?>"></td>
+                </tr>
+                <tr>
                     <td>Select Image:</td>
                     <td><input type="file" name="image"></td>
                 </tr>
@@ -273,17 +284,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <input type="submit" name="submit" value="Add Item" class="btn-secondary">
-                    </td>
+                    <td colspan="2"><input type="submit" name="submit" value="Add Item" class="btn-secondary"></td>
                 </tr>
             </table>
         </form>
     </div>
 </body>
 </html>
-
-    </div>
-</div>
-
-<?php include('partials/footer.php'); ?>

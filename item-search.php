@@ -155,9 +155,9 @@ $search = isset($_POST['search']) ? $_POST['search'] : '';
             <?php
             // Database connection
             $servername = "localhost";
-            $username = "root"; // Replace with your MySQL username
-            $password = ""; // Replace with your MySQL password
-            $database = "petshop"; // Replace with your database name
+            $username = "root";
+            $password = "";
+            $database = "petshop";
 
             $conn = mysqli_connect($servername, $username, $password, $database);
 
@@ -224,6 +224,13 @@ $search = isset($_POST['search']) ? $_POST['search'] : '';
                             </p>
                             <br>
                             <a href="order.php?item_id=<?php echo $item['id']; ?>" class="btn btn-primary">Order Now</a>
+                            <!-- <a href="<?php echo SITEURL; ?>add-to-cart.php?item_id=<?php echo $id; ?>" class="btn btn-secondary add-to-cart">
+                                <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </a> -->
+                            <a href="<?php echo SITEURL; ?>add-to-cart.php?item_id=<?php echo $item['id']; ?>" class="btn btn-secondary add-to-cart">
+                                 <i class="fas fa-shopping-basket"></i> Add to Cart
+                            </a>
+
                         </div>
                     </div>
                     <?php
@@ -240,3 +247,4 @@ $search = isset($_POST['search']) ? $_POST['search'] : '';
 <!-- Item Menu Section Ends Here -->
 
 <?php include('partials-front/footer.php'); ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

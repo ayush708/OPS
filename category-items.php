@@ -1,25 +1,25 @@
 <?php include('partials-front/menu.php');?>
 
 <?php
-    // Check whether id is passed or not
-    if(isset($_GET['category_id'])) {
-        // Category id is set and get the id
-        $category_id = $_GET['category_id'];
-        // Get category title based on category id
-        $sql = "SELECT title FROM tbl_category WHERE id=$category_id";
+// Check whether id is passed or not
+if (isset($_GET['category_id'])) {
+    // Category id is set and get the id
+    $category_id = $_GET['category_id'];
+    // Get category title based on category id
+    $sql = "SELECT title FROM tbl_category WHERE id=$category_id";
 
-        // Execute
-        $res = mysqli_query($conn, $sql);
+    // Execute
+    $res = mysqli_query($conn, $sql);
 
-        // Get value from db
-        $row = mysqli_fetch_assoc($res);
-        // Get the title
-        $category_title = $row['title'];
-    } else {
-        // Category not passed
-        // Redirect
-        header('location:'.SITEURL);
-    }
+    // Get value from db
+    $row = mysqli_fetch_assoc($res);
+    // Get the title
+    $category_title = $row['title'];
+} else {
+    // Category not passed
+    // Redirect
+    header('location:' . SITEURL);
+}
 ?>
 
 <!-- Item Search Section Starts Here -->
@@ -47,20 +47,22 @@
             $count2 = mysqli_num_rows($res2);
 
             // Check whether item is available or not
-            if($count2 > 0) {
+            if ($count2 > 0) {
                 // Item available
-                while($row2 = mysqli_fetch_assoc($res2)) {
+                while ($row2 = mysqli_fetch_assoc($res2)) {
                     $id = $row2['id'];
                     $title = $row2['title'];
                     $price = $row2['price'];
                     $description = $row2['description'];
                     $image_name = $row2['image_name'];
+                    $quantity = $row2['quantity']; // Fetch quantity
+
                     ?>
 
                     <div class="explore-box">
                         <div class="explore-menu-img">
                             <?php
-                            if($image_name == "") {
+                            if ($image_name == "") {
                                 // Image not available
                                 echo "<div class='error'>Image not available</div>";
                             } else {
@@ -76,8 +78,10 @@
                             <h4><?php echo $title; ?></h4>
                             <p class="item-price">Rs. <?php echo $price; ?></p>
                             <p class="item-detail"><?php echo $description; ?></p>
+                            <p class="quantity">Items Left: <?php echo $quantity; ?></p> <!-- Display quantity here -->
                             <br>
                             <a href="<?php echo SITEURL; ?>order.php?item_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
+                            <a href="<?php echo SITEURL; ?>add_to_cart.php?item_id=<?php echo $id; ?>" class="btn btn-secondary">Add to Cart</a>
                         </div>
                     </div>
 
@@ -96,3 +100,17 @@
 <!-- Item Menu Section Ends Here -->
 
 <?php include('partials-front/footer.php');?>
+<style>
+    .quantity {
+    display: inline-block;
+    font-weight: bold;
+    color: #ff6b6b; /* Red shade for emphasis */
+    background-color: #f9f9f9;
+    border: 1px solid #ff6b6b; /* Matching border color */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+</style>

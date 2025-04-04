@@ -1,12 +1,30 @@
 <?php include('partials-front/menu.php'); ?>
 
+
 <?php
 // Check if user is logged in
 if (!isset($_SESSION["user_logged_in"]) || $_SESSION["user_logged_in"] !== true) {
     header("location: login.php");
     exit();
 }
+include('config/constants.php');
 
+// Check if item_id is passed in the URL
+if (isset($_GET['item_id'])) {
+    $item_id = $_GET['item_id'];
+
+    // SQL query to increment the total_views column
+    $sql = "UPDATE tbl_items SET total_views = total_views + 1 WHERE id = $item_id";
+
+    // Execute the query
+    $res = mysqli_query($conn, $sql);
+
+    // Check if the query executed successfully
+    if ($res === false) {
+        // Optional: Log the error or display a message
+        echo "<div class='error'>Failed to update views count. Please try again.</div>";
+    }
+}
 // Check whether item_id is set or not
 if (isset($_GET['item_id'])) {
     // Get the item id and details of the selected item
@@ -35,6 +53,7 @@ if (isset($_GET['item_id'])) {
         $title = $row['title'];
         $price = $row['price'];
         $image_name = $row['image_name']; // Image is not used now
+        $available_qty = $row['quantity']; // Assuming the column name is `quantity`
     } else {
         // Item not available
         // Redirect
@@ -86,6 +105,8 @@ if (isset($_POST['submit'])) {
     // Validate quantity
     if (empty($qty) || !is_numeric($qty) || $qty <= 0) {
         $err['quantity'] = "Quantity must be greater than zero.";
+    } elseif ($qty > $available_qty) {
+        $err['quantity'] = "Only $available_qty items available in stock.";
     }
 
     // Validate address
@@ -93,44 +114,64 @@ if (isset($_POST['submit'])) {
         $err['customer_address'] = "Address is required";
     }
 
-    // Save the order in the database
-    // Create SQL to save data
-    if (empty($err)) {
-        $sql2 = "INSERT INTO tbl_order (item, price, qty, total, order_date, status, customer_name, customer_contact, customer_email, customer_address, payment_option, uid)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// Save the order in the database
+if (empty($err)) {
+    $sql2 = "INSERT INTO tbl_order (item, price, qty, total, order_date, status, customer_name, customer_contact, customer_email, customer_address, payment_option, uid)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        // Prepare statement
-        $stmt2 = mysqli_prepare($conn, $sql2);
+    // Prepare statement
+    $stmt2 = mysqli_prepare($conn, $sql2);
 
-        if ($stmt2) {
-            // Bind parameters
-            mysqli_stmt_bind_param($stmt2, 'siddsssssssi', $item, $price, $qty, $total, $order_date, $status, $customer_name, $customer_contact, $customer_email, $customer_address, $payment_option, $uid);
+    if ($stmt2) {
+        // Bind parameters
+        mysqli_stmt_bind_param($stmt2, 'siddsssssssi', $item, $price, $qty, $total, $order_date, $status, $customer_name, $customer_contact, $customer_email, $customer_address, $payment_option, $uid);
 
-            // Execute the query
-            if (mysqli_stmt_execute($stmt2)) {
-                if ($payment_option == "Online Payment") {
-                    // Redirect to eSewa for online payment
-                    header("Location: checkout.php?amount=$total&item=$item&order_id=" . mysqli_insert_id($conn));
-                    exit();
-                } else {
-                    // Query executed and order saved
-                    $_SESSION['order'] = "<div class='success text-center'>Order Placed Successfully</div>";
-                    header('location:' . SITEURL);
-                    exit();
-                }
+        // Execute the query
+        if (mysqli_stmt_execute($stmt2)) {
+            // Get the order ID of the last inserted row
+            $order_id = mysqli_insert_id($conn);
+
+            // Save the order ID in the session
+            $_SESSION['order_id'] = $order_id;
+
+            // Deduct ordered quantity from stock
+            $new_qty = $available_qty - $qty;
+            $sql_update_qty = "UPDATE tbl_items SET quantity = ? WHERE id = ?";
+            $stmt_update_qty = mysqli_prepare($conn, $sql_update_qty);
+            mysqli_stmt_bind_param($stmt_update_qty, 'ii', $new_qty, $item_id);
+            mysqli_stmt_execute($stmt_update_qty);
+            
+//here total_sold is increased respect to the selling or orderd by an user
+            $sql_update_sold = "UPDATE tbl_items SET total_sold = total_sold + ? WHERE id = ?";
+$stmt_update_sold = mysqli_prepare($conn, $sql_update_sold);
+mysqli_stmt_bind_param($stmt_update_sold, 'ii', $qty, $item_id);
+mysqli_stmt_execute($stmt_update_sold);
+
+            // Redirect based on payment method
+            if ($payment_option == "Online Payment") {
+                // Redirect to checkout for online payment
+                header("Location: checkout.php?amount=$total&item=$item&order_id=$order_id");
+                exit();
             } else {
-                // Failed to save order
-                $_SESSION['order'] = "<div class='error text-center'>Failed to Place Order</div>";
+                // Order successfully placed, show success message
+                $_SESSION['order'] = "<div class='success text-center'>Order Placed Successfully</div>";
                 header('location:' . SITEURL);
                 exit();
             }
         } else {
-            // Statement preparation failed
-            $_SESSION['order'] = "<div class='error text-center'>Database error: Unable to prepare statement.</div>";
+            // Failed to save order
+            $_SESSION['order'] = "<div class='error text-center'>Failed to Place Order</div>";
             header('location:' . SITEURL);
             exit();
         }
+    } else {
+        // Statement preparation failed
+        $_SESSION['order'] = "<div class='error text-center'>Database error: Unable to prepare statement.</div>";
+        header('location:' . SITEURL);
+        exit();
     }
+}
+
 }
 ?>
 

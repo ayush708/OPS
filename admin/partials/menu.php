@@ -31,3 +31,5 @@
 
 
          <!--menu section ends here-->
+</body>
+</html>

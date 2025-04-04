@@ -57,7 +57,7 @@
         </div>
 
         <!-- Notification for successful login -->
-        <?php 
+        <?php
         if(isset($_SESSION['login'])) {
             echo "<div style='font-size: 1.2em; color: #28a745; text-align: center; margin-bottom: 20px;'>".$_SESSION['login']."</div>";
             unset($_SESSION['login']);

@@ -2,11 +2,10 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Include PHPMailer autoload file
-include('partials-front/menu.php'); // Include the menu
-require('config/constants.php'); // Include your constants file (contains SITEURL and database connection)
+require 'vendor/autoload.php';
+include('partials-front/menu.php');
+require('config/constants.php');
 
-// Initialize error array
 $err = [];
 $success_message = "";
 
@@ -42,18 +41,16 @@ if (isset($_POST['submit'])) {
             try {
                 //Server settings
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com'; // Set this to your SMTP server address
+                $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'ayushstha708@gmail.com'; // Your SMTP username
-                $mail->Password   = 'tkey jikr jeuv fggx'; // Your SMTP app password
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Encryption protocol (TLS or SSL)
-                $mail->Port       = 587; // SMTP port (587 for TLS, 465 for SSL, or 25 for non-encrypted)
+                $mail->Username   = 'ayushstha708@gmail.com';
+                $mail->Password   = 'tkey jikr jeuv fggx';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
 
-                //Recipients
                 $mail->setFrom('no-reply@yourdomain.com', 'Your Website');
                 $mail->addAddress($email);
 
-                // Content
                 $mail->isHTML(true);
                 $mail->Subject = $subject;
                 $mail->Body    = $message;
@@ -87,14 +84,12 @@ if (isset($_POST['submit'])) {
             <h1 class="text-center">Forgot Password</h1>
             <br><br>
 
-            <!-- Display success message -->
             <?php 
             if(!empty($success_message)) {
                 echo "<div class='success'>$success_message</div>";
             }
             ?>
 
-            <!-- Forgot password form starts here -->
             <form action="" method="POST" style="width: 40%; margin: 100px auto; padding: 30px; border: 2px solid #2196F3; border-radius: 10px; background-color: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
                 <h2 style="text-align: center; color: #2196F3; margin-bottom: 20px;">Reset Your Password</h2>
                 
@@ -112,7 +107,6 @@ if (isset($_POST['submit'])) {
                 </div>
             </form>
 
-            <!-- Forgot password form ends here -->
         </div>
     </div>
 

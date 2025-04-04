@@ -27,7 +27,7 @@ if(isset($_SESSION['order']))
         <div class="explore-grid">
         <?php
         // Getting items from db that are active & featured
-        $sql2 = "SELECT * FROM tbl_items WHERE active='Yes' AND featured='Yes' LIMIT 4";
+        $sql2 = "SELECT * FROM tbl_items WHERE active='Yes' AND featured='Yes' LIMIT 50";
         // Execute
         $res2 = mysqli_query($conn, $sql2);
         // Count rows
@@ -42,6 +42,8 @@ if(isset($_SESSION['order']))
                 $price = $row['price'];
                 $description = $row['description'];
                 $image_name = $row['image_name'];
+                $quantity = $row['quantity']; // Fetch quantity
+
                 ?>
 
                 <div class="explore-box">
@@ -64,8 +66,11 @@ if(isset($_SESSION['order']))
                         <h4><?php echo $title; ?></h4>
                         <p class="price">Rs.<?php echo $price; ?></p>
                         <p class="desc"><?php echo $description; ?></p>
-                        <br>
+                        <p class="quantity">Items Left: <?php echo $quantity; ?></p> <!-- Display quantity -->
                         <a href="<?php echo SITEURL; ?>order.php?item_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
+                        <a href="<?php echo SITEURL; ?>add-to-cart.php?item_id=<?php echo $id; ?>" class="btn btn-secondary add-to-cart">
+                            <i class="fas fa-shopping-basket"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
 
@@ -83,4 +88,20 @@ if(isset($_SESSION['order']))
 </section>
 <!-- Explore section end -->
 
+
 <?php include('partials-front/footer.php');?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .quantity {
+    display: inline-block;
+    font-weight: bold;
+    color: #ff6b6b; /* Red shade for emphasis */
+    background-color: #f9f9f9;
+    border: 1px solid #ff6b6b; /* Matching border color */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+</style>
